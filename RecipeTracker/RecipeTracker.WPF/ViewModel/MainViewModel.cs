@@ -35,17 +35,19 @@ namespace RecipeTracker.WPF.ViewModel
 
         #region Commands
 
-        public RelayCommand AddCommmand { get; set; }
-
         #endregion
 
         #region Constructor
 
         public MainViewModel()
         {
-            CurrentViewModel = SimpleIoc.Default.GetInstance<RecipesViewModel>();
+            // Listen to the AddNewRecipe event from the RecipesViewModel to navigate to the AddRecipeView view
+            var recipesViewModel = SimpleIoc.Default.GetInstance<RecipesViewModel>();
+            if(recipesViewModel != null)
+            {
+                recipesViewModel.AddNewRecipe += OnAddNewRecipe;
+            }
 
-            AddCommmand = new RelayCommand(OnAddCommand);
 
             // Listen to the NewRecipedAdded event from the AddRecipeViewModel to navigate to the Recipes view
             var addedNewRecipiedViewModel = SimpleIoc.Default.GetInstance<AddRecipeViewModel>();
@@ -54,6 +56,9 @@ namespace RecipeTracker.WPF.ViewModel
             {
                 addedNewRecipiedViewModel.NewRecipedAdded += OnNewRecipedAdded;
             }
+
+            CurrentViewModel = recipesViewModel;
+
         }
 
         #endregion
@@ -62,14 +67,14 @@ namespace RecipeTracker.WPF.ViewModel
 
         #region Private
 
-        private void OnAddCommand()
-        {
-            CurrentViewModel = SimpleIoc.Default.GetInstance<AddRecipeViewModel>();
-        }
-
         private void OnNewRecipedAdded()
         {
             CurrentViewModel = SimpleIoc.Default.GetInstance<RecipesViewModel>();
+        }
+
+        private void OnAddNewRecipe()
+        {
+            CurrentViewModel = SimpleIoc.Default.GetInstance<AddRecipeViewModel>();
         }
 
         #endregion

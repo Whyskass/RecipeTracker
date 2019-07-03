@@ -2,6 +2,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:RecipeTracker.WPF.ViewModel" />
-    </ResourceDictionary>
+            <Color x:Key="MainGreenColor">#FF1EA18D</Color>
+        </ResourceDictionary>
   </Application.Resources>
 </Application>

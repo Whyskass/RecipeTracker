@@ -20,14 +20,18 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Add a new recipe"
-                   Grid.Row="0"/>
-        <Grid Grid.Row="1">
+                   Grid.Row="0" FontSize="18">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -37,19 +41,34 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Vertical" Grid.Row="0">
-                <TextBlock Text="Name" />
-                <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                <TextBlock Text="Name"
+                           FontSize="16" >
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <TextBox Text="{Binding Name, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" Width="250" HorizontalAlignment="Left" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="1">
-                <TextBlock Text="Description" />
-                <TextBox Text="{Binding Description, Mode=TwoWay}" />
+                <TextBlock Text="Description"
+                           FontSize="16" Margin="0,5,0,0">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <TextBox Text="{Binding Description, Mode=TwoWay}" HorizontalAlignment="Left" Width="250" 
+                         AcceptsReturn="True" MinLines="2" />
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="2">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Ingredient(s)" Margin="0 0 20 0" />
+            <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0,5,0,0">
+                <StackPanel Margin="0" Orientation="Horizontal">
+                    <TextBlock Text="Ingredient(s)"
+                               FontSize="16" Margin="0 0 20 0">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New ingredient name: "/>
-                        <TextBox Text="{Binding NewIngredientName,Mode=TwoWay}"
+                        <TextBox Text="{Binding NewIngredientName,Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
                                  Width="100"/>
                         <Button Content="Add"
                                 Margin="5 0 0 0"
@@ -58,14 +77,18 @@
                 </StackPanel>
                 <ListView ItemsSource="{Binding Ingredients}"  
                           MinHeight="100"
-                              ItemTemplate="{DynamicResource IngredientDataTemplate}" />
+                              ItemTemplate="{DynamicResource IngredientDataTemplate}" Margin="0,2,0,0" HorizontalAlignment="Left" Width="250" />
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="3">
+            <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Step(s)" Margin="0 0 20 0" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New step name: "/>
-                        <TextBox Text="{Binding NewStepName,Mode=TwoWay}"
+                    <TextBlock Text="Step(s)" Margin="0 0 20 0"
+                               FontSize="16">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBox Text="{Binding NewStepName,Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
                                  Width="100"/>
                         <Button Content="Add"
                                 Margin="5 0 0 0"
@@ -74,12 +97,12 @@
                 </StackPanel>
                 <ListView ItemsSource="{Binding Steps}" 
                           MinHeight="100"
-                              ItemTemplate="{DynamicResource StepsDataTemplate}" />
+                              ItemTemplate="{DynamicResource StepsDataTemplate}" Margin="0,2,0,0" Width="250" HorizontalAlignment="Left" />
             </StackPanel>
 
             <Button Grid.Row="4"
                     Content="Add new recipe"
-                    Command="{Binding AddRecipe}" />
+                    Command="{Binding AddRecipe}" Width="100" HorizontalAlignment="Right" Margin="0,5,0,0" />
         </Grid>
     </Grid>
 </UserControl>

@@ -29,6 +29,10 @@ namespace RecipeTracker.WPF.ViewModel
 
         public RelayCommand LoadRecipes { get; set; }
 
+        public RelayCommand AddNewRecipeCommmand { get; set; }
+
+        public event Action AddNewRecipe;
+
         #endregion
 
         #region Constructor
@@ -38,16 +42,9 @@ namespace RecipeTracker.WPF.ViewModel
             this.recipeRepository = recipeRepository;
 
             LoadRecipes = new RelayCommand(OnLoadRecipes);
-        }
 
-        #endregion
+            AddNewRecipeCommmand = new RelayCommand(OnAddNewRecipeCommand);
 
-        #region Business
-
-        #region Private
-
-        public async void OnLoadRecipes()
-        {
             if (IsInDesignModeStatic)
             {
                 #region Design Data
@@ -77,10 +74,23 @@ namespace RecipeTracker.WPF.ViewModel
 
                 #endregion
             }
-            else
-            {
-                Recipes = new ObservableCollection<Recipe>(await recipeRepository.GetRecipes());
-            }
+        }
+
+        #endregion
+
+        #region Business
+
+        #region Private
+
+        private void OnAddNewRecipeCommand()
+        {
+            AddNewRecipe();
+        }
+
+        public async void OnLoadRecipes()
+        {
+            Recipes = new ObservableCollection<Recipe>(await recipeRepository.GetRecipes());
+
         }
 
         #endregion

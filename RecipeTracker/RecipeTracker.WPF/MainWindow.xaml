@@ -8,7 +8,7 @@
         xmlns:view="clr-namespace:RecipeTracker.WPF.View"
         mc:Ignorable="d"
         DataContext="{Binding Main,Source={StaticResource Locator}}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Recipe Tracker" Height="600" Width="550" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:RecipesViewModel}">
             <view:RecipesView />
@@ -23,8 +23,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBlock Text="Recipe Tracker" />
-            <Button Content="Add" Command="{Binding AddCommmand}"/>
+            <StackPanel.Background>
+                <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
+            </StackPanel.Background>
+            <TextBlock Text="Recipe Tracker" FontSize="24" Foreground="White"
+                       Margin="5"/>
         </StackPanel>
         <ContentControl Content="{Binding CurrentViewModel,Mode=TwoWay}"
                         Grid.Row="1"/>
