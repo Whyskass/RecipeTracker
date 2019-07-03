@@ -52,6 +52,14 @@ namespace RecipeTracker.WPF.ViewModel
             }
         }
 
+        public AddRecipeViewModel AddRecipe
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddRecipeViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

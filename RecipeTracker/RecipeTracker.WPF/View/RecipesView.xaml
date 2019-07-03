@@ -1,18 +1,19 @@
-﻿<UserControl x:Class="RecipeTracker.WPF.View.RecipesView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeTracker.WPF.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="RecipeTracker.WPF.View.RecipesView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding Recipes,Source={StaticResource Locator}}">
+             >
     <UserControl.Resources>
         <DataTemplate x:Key="RecipeListDataTemplate">
             <Grid>
                 <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
             </Grid>
-        </DataTemplate> 
+        </DataTemplate>
         <DataTemplate x:Key="IngredientDataTemplate">
             <Grid>
                 <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
@@ -25,11 +26,19 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Path="Recipes" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <Custom:EventToCommand Command="{Binding LoadRecipes}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <TextBlock Text="Recipes List" Grid.Row="0"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -38,7 +47,7 @@
             </Grid.ColumnDefinitions>
             <ListView Grid.Column="0"
                       ItemsSource="{Binding Recipes}"
-                      SelectedItem="{Binding SelectedRecipe,Mode=TwoWay}" 
+                      SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}" 
                       ItemTemplate="{DynamicResource RecipeListDataTemplate}"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

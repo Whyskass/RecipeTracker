@@ -10,9 +10,11 @@ namespace RecipeTracker.DataAccess
 {
     public class RecipeRepository : IRecipeRepository
     {
-        public IList<Recipe> GetRecipes()
+        private IList<Recipe> recipeList;
+
+        public RecipeRepository()
         {
-            return new List<Recipe>()
+            recipeList = new List<Recipe>()
                 {
                     new Recipe()
                     {
@@ -34,9 +36,18 @@ namespace RecipeTracker.DataAccess
                 };
         }
 
-        public Recipe SaveRecipe(Recipe recipe)
+        public async Task<IList<Recipe>> GetRecipes()
         {
-            throw new NotImplementedException();
+            return recipeList;
+        }
+
+        public async Task<Recipe> SaveRecipe(Recipe recipe)
+        {
+            recipe.Id = 1;
+
+            recipeList.Add(recipe);
+
+            return recipe;
         }
     }
 }

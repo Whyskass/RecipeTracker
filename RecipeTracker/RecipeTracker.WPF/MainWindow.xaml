@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <TextBlock Text="Recipe Tracker" />
-            <Button Content="Add" />
+            <Button Content="Add" Command="{Binding AddCommmand}"/>
         </StackPanel>
         <ContentControl Content="{Binding CurrentViewModel,Mode=TwoWay}"
                         Grid.Row="1"/>

@@ -5,8 +5,81 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeTracker.WPF.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding AddRecipe,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="IngredientDataTemplate">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="StepsDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Order}" Margin="0 0 5 0"/>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Add Recipe View"/>            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Add a new recipe"
+                   Grid.Row="0"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <TextBlock Text="Name" />
+                <TextBox Text="{Binding Name, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <TextBlock Text="Description" />
+                <TextBox Text="{Binding Description, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Ingredient(s)" Margin="0 0 20 0" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New ingredient name: "/>
+                        <TextBox Text="{Binding NewIngredientName,Mode=TwoWay}"
+                                 Width="100"/>
+                        <Button Content="Add"
+                                Margin="5 0 0 0"
+                            Command="{Binding AddIngredient}"/>
+                    </StackPanel>
+                </StackPanel>
+                <ListView ItemsSource="{Binding Ingredients}"  
+                          MinHeight="100"
+                              ItemTemplate="{DynamicResource IngredientDataTemplate}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="3">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Step(s)" Margin="0 0 20 0" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New step name: "/>
+                        <TextBox Text="{Binding NewStepName,Mode=TwoWay}"
+                                 Width="100"/>
+                        <Button Content="Add"
+                                Margin="5 0 0 0"
+                            Command="{Binding AddStep}"/>
+                    </StackPanel>
+                </StackPanel>
+                <ListView ItemsSource="{Binding Steps}" 
+                          MinHeight="100"
+                              ItemTemplate="{DynamicResource StepsDataTemplate}" />
+            </StackPanel>
+
+            <Button Grid.Row="4"
+                    Content="Add new recipe"
+                    Command="{Binding AddRecipe}" />
+        </Grid>
     </Grid>
 </UserControl>

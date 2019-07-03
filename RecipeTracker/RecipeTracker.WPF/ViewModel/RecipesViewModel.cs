@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RecipeTracker.DataAccess.Abstraction;
 using RecipeTracker.DataAccess.Model;
 using System;
@@ -16,14 +17,17 @@ namespace RecipeTracker.WPF.ViewModel
 
         private readonly IRecipeRepository recipeRepository;
         private Recipe selectedRecipe;
+        private ObservableCollection<Recipe> recipes;
 
         #endregion
 
         #region Properties
 
-        public ObservableCollection<Recipe> Recipes { get; set; }
+        public ObservableCollection<Recipe> Recipes { get => recipes; set => Set(ref recipes, value); }
 
         public Recipe SelectedRecipe { get => selectedRecipe; set => Set(ref selectedRecipe, value); }
+
+        public RelayCommand LoadRecipes { get; set; }
 
         #endregion
 
@@ -33,7 +37,7 @@ namespace RecipeTracker.WPF.ViewModel
         {
             this.recipeRepository = recipeRepository;
 
-            LoadRecipes();
+            LoadRecipes = new RelayCommand(OnLoadRecipes);
         }
 
         #endregion
@@ -42,7 +46,7 @@ namespace RecipeTracker.WPF.ViewModel
 
         #region Private
 
-        private void LoadRecipes()
+        public async void OnLoadRecipes()
         {
             if (IsInDesignModeStatic)
             {
@@ -75,7 +79,7 @@ namespace RecipeTracker.WPF.ViewModel
             }
             else
             {
-                Recipes = new ObservableCollection<Recipe>(recipeRepository.GetRecipes());
+                Recipes = new ObservableCollection<Recipe>(await recipeRepository.GetRecipes());
             }
         }
 

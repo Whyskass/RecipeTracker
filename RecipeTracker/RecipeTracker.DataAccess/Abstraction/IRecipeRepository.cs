@@ -9,7 +9,7 @@ namespace RecipeTracker.DataAccess.Abstraction
 {
     public interface IRecipeRepository
     {
-        IList<Recipe> GetRecipes();
-        Recipe SaveRecipe(Recipe recipe);
+        Task<IList<Recipe>> GetRecipes();
+        Task<Recipe> SaveRecipe(Recipe recipe);
     }
 }
