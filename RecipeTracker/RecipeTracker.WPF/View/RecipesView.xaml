@@ -5,8 +5,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeTracker.WPF.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding Recipes,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="RecipeListDataTemplate">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate> 
+        <DataTemplate x:Key="IngredientDataTemplate">
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="StepsDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Order}" Margin="0 0 5 0"/>
+                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Recipes View"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Recipes List" Grid.Row="0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding Recipes}"
+                      SelectedItem="{Binding SelectedRecipe,Mode=TwoWay}" 
+                      ItemTemplate="{DynamicResource RecipeListDataTemplate}"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <TextBlock Text="Name" />
+                    <TextBlock Text="{Binding SelectedRecipe.Name}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="1">
+                    <TextBlock Text="Description" />
+                    <TextBlock Text="{Binding SelectedRecipe.Description}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="2">
+                    <TextBlock Text="Ingredient(s)" />
+                    <ListView ItemsSource="{Binding SelectedRecipe.Ingredients}" 
+                              ItemTemplate="{DynamicResource IngredientDataTemplate}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="3">
+                    <TextBlock Text="Step(s)" />
+                    <ListView ItemsSource="{Binding SelectedRecipe.Steps}" 
+                              ItemTemplate="{DynamicResource StepsDataTemplate}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
