@@ -47,7 +47,10 @@
                         <SolidColorBrush Color="{DynamicResource MainGreenColor}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <TextBox Text="{Binding Name, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" Width="250" HorizontalAlignment="Left" />
+                <TextBox Text="{Binding Name, 
+                    Mode=TwoWay, 
+                    ValidatesOnNotifyDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged}" Width="250" HorizontalAlignment="Left" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <TextBlock Text="Description"
@@ -68,7 +71,9 @@
                         </TextBlock.Foreground>
                     </TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Text="{Binding NewIngredientName,Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                        <TextBox Text="{Binding NewIngredientName,Mode=TwoWay, 
+                                        ValidatesOnNotifyDataErrors=True,
+                                        UpdateSourceTrigger=PropertyChanged}"
                                  Width="100"/>
                         <Button Content="Add"
                                 Margin="5 0 0 0"
@@ -77,7 +82,8 @@
                 </StackPanel>
                 <ListView ItemsSource="{Binding Ingredients}"  
                           MinHeight="100"
-                              ItemTemplate="{DynamicResource IngredientDataTemplate}" Margin="0,2,0,0" HorizontalAlignment="Left" Width="250" />
+                          ItemTemplate="{DynamicResource IngredientDataTemplate}" 
+                          Margin="0,2,0,0" HorizontalAlignment="Left" Width="250" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal">
@@ -88,7 +94,9 @@
                         </TextBlock.Foreground>
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBox Text="{Binding NewStepName,Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                        <TextBox Text="{Binding NewStepName,Mode=TwoWay, 
+                                        ValidatesOnNotifyDataErrors=True,
+                                        UpdateSourceTrigger=PropertyChanged}"
                                  Width="100"/>
                         <Button Content="Add"
                                 Margin="5 0 0 0"

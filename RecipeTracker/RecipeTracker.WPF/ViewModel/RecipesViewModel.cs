@@ -41,10 +41,11 @@ namespace RecipeTracker.WPF.ViewModel
         {
             this.recipeRepository = recipeRepository;
 
+            // Initialize commands
             LoadRecipes = new RelayCommand(OnLoadRecipes);
-
             AddNewRecipeCommmand = new RelayCommand(OnAddNewRecipeCommand);
 
+            // Use fake data to design on Microsoft Blend
             if (IsInDesignModeStatic)
             {
                 #region Design Data
@@ -90,7 +91,6 @@ namespace RecipeTracker.WPF.ViewModel
         public async void OnLoadRecipes()
         {
             Recipes = new ObservableCollection<Recipe>(await recipeRepository.GetRecipes());
-
         }
 
         #endregion

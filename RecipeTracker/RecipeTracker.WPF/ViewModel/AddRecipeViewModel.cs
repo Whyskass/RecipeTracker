@@ -135,12 +135,13 @@ namespace RecipeTracker.WPF.ViewModel
                     Steps = Steps.ToList()
                 };
                 await recipeRepository.SaveRecipe(newRecipe);
+
+                // Trigger this event to tell the MainViewModel instance to navigate the Recipes view
                 NewRecipedAdded();
             }
         }
 
         #region Error management methods
-
 
         private void SetWithValidation<T>(ref T field, T newValue = default, [CallerMemberName] string propertyName = null)
         {
